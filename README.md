@@ -5,22 +5,24 @@ A data-analytics study of 60+ years of demographic change across 200+ countries.
 
 ---
 
-## 🎯 Objective & outcome
+## What I set out to do
 
-**Objective —** turn 60+ years of World Bank data into a clear, decision-ready read on
-**which countries are aging vs. still growing**, who is aging *fastest*, and **where India
-stands** — for a long-horizon (25-year) global investment fund.
+I kept seeing headlines about the world "getting old" while other countries are still
+booming, and I wanted to check that against the actual numbers instead of taking it on faith.
+So I framed it the way someone managing money over a long horizon would: which countries are
+going to have a young, growing workforce, which ones are heading into an ageing problem, and —
+the part I was most curious about — where India actually fits in all of this.
 
-**What this project does —** a fully reproducible analytics pipeline: pull 11 demographic
-indicators for 200+ countries from the World Bank API → clean into a SQL **star-schema**
-warehouse → answer the brief with **6 analytical SQL queries** → visualise in an interactive
-**Power BI** dashboard.
+To get there I pulled 11 demographic indicators for 200+ countries straight from the World
+Bank API (going back to 1960), cleaned them into a star-schema so they were easy to query,
+wrote a set of SQL queries to pull out the trends, and built a Power BI dashboard to turn it
+into a story you can actually see.
 
-**Did we achieve it? ✅ Yes.** The global transition is quantified (fertility roughly
-**halved, 5.3 → 2.4 births per woman**), the youngest/oldest regions and **fastest-aging
-countries** are ranked, and **India's demographic-dividend window** is pinpointed (working-age
-share peaking *now*). Delivered end-to-end with documented methodology and honest caveats
-(e.g. unweighted country averages).
+**How it turned out:** the numbers were striking — global fertility has roughly halved
+(5.3 → 2.4 births per woman). I could rank which regions are youngest and oldest, spot which
+countries are ageing fastest, and show that India's working-age share is peaking right about
+now. I also tried to stay honest about the limits — for example I used unweighted country
+averages, which I call out in the methodology rather than hide.
 
 ---
 
