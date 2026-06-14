@@ -36,7 +36,7 @@ averages, which I call out in the methodology rather than hide.
 > pension costs, shrinking workforce). They also want a clear read on **where India
 > sits** in this window of opportunity.
 
-As the analyst, the questions I set out to answer:
+Putting myself in the analyst's seat, these are the questions I wanted to answer:
 
 1. How has the world moved through the "demographic transition" since 1960?
 2. Which regions / income groups are **youngest** and which are **oldest** today?
@@ -70,7 +70,7 @@ As the analyst, the questions I set out to answer:
 | `urban_population_pct` | Share living in urban areas | % |
 | `dependency_ratio` | Dependents (under-15 + over-64) per 100 working-age | ratio |
 
-**Key concepts a reviewer will expect me to know:**
+**A few concepts I had to be solid on going in:**
 - **Replacement-level fertility ≈ 2.1.** Below this, a population eventually shrinks without immigration.
 - **Demographic dividend:** the growth boost a country gets while it has a large working-age share and few dependents.
 - **Aging:** rising `pct_age_65_plus` and `dependency_ratio` → pressure on pensions & healthcare.
@@ -83,37 +83,41 @@ As the analyst, the questions I set out to answer:
 > "Average" means the average across countries unless stated otherwise.
 
 **1. The world's families have nearly halved in size.** Average fertility fell from
-**5.31 children per woman in the 1960s to 2.44 in the 2020s** — now close to the
-~2.1 "replacement" level at which a population stops growing.
+**5.31 children per woman in the 1960s to 2.44 in the 2020s** — that puts it right up
+against the ~2.1 "replacement" level where a population stops growing. This was the one
+that surprised me most when I first ran the query.
 → `sql/01_global_fertility_decline.sql`
 
 **2. People live far longer — but how long depends heavily on where you're born.**
-In 2023, average life expectancy ranged from **80.8 years in North America** down to
-**64.6 in Sub-Saharan Africa** — a gap of roughly **16 years**.
+What stood out here was the size of the gap. In 2023, average life expectancy ran from
+**80.8 years in North America** down to **64.6 in Sub-Saharan Africa** — roughly
+**16 years** apart depending on where you happen to be born.
 → `sql/02_life_expectancy_by_region.sql`
 
-**3. The world is ageing.** The share of children (0–14) fell from **39.4% (1960s) to
-26.1% (2020s)**, while the elderly share (65+) **doubled, from 5.1% to 10.0%**. The gap
-between young and old is closing fast.
+**3. The world is ageing.** I could see it from both ends at once: the share of children
+(0–14) fell from **39.4% (1960s) to 26.1% (2020s)**, while the elderly share (65+)
+**doubled, from 5.1% to 10.0%**. Young and old are converging fast.
 → `sql/03_population_ageing.sql`
 
 **4. Almost all future growth will come from the poorest countries.** Since 2015,
-**low-income countries grew 2.42%/year** versus just **0.52–0.63% in richer ones** —
-about **4–5× faster**. (At 2.4%/yr a population doubles in ~29 years.)
+**low-income countries grew 2.42%/year** against just **0.52–0.63% in richer ones** —
+about **4–5× faster**. To make that concrete, at 2.4%/yr a population doubles in about
+29 years.
 → `sql/04_growth_by_income_group.sql`
 
-**5. Some countries transformed within a single lifetime.** The biggest fertility
-collapses 1960→2023 were led by **Iran (7.52 → 1.70)**, Kuwait, and Brunei — the
-leaderboard is dominated by the Middle East/Gulf and Latin America.
+**5. Some countries transformed within a single lifetime.** When I ranked the biggest
+fertility collapses 1960→2023, the top of the list was **Iran (7.52 → 1.70)**, Kuwait,
+and Brunei — and the leaderboard as a whole leaned heavily towards the Middle East/Gulf
+and Latin America.
 → `sql/05_fastest_transition_countries.sql`
 
-**6. India's demographic dividend is peaking right now — and it's time-limited.**
-India's fertility fell from **5.88 to 2.01** (now *below* replacement) and life
-expectancy rose **+24 years** (46.5 → 70.3). Critically, its **working-age share
-(15–64) is at an all-time high of 67.7%** — meaning ~2 in 3 Indians are of working
-age today. But with fertility already below replacement and the elderly share rising
-(3.5% → 6.6%), this growth window will begin to close in the coming decades.
-**India's opportunity is now.**
+**6. India's demographic dividend is peaking right now — and it's time-limited.** This
+was the question I cared about most. India's fertility fell from **5.88 to 2.01** (now
+*below* replacement) and life expectancy rose **+24 years** (46.5 → 70.3). The part that
+really landed for me: its **working-age share (15–64) is at an all-time high of 67.7%**,
+so about 2 in 3 Indians are of working age today. But with fertility already below
+replacement and the elderly share rising (3.5% → 6.6%), that window will start to close
+over the coming decades. **India's opportunity is now.**
 → `sql/06_india_story.sql`
 
 ---
@@ -165,18 +169,19 @@ python scripts/run_sql.py sql/06_india_story.sql
 
 ## Methodology notes (the honest details)
 - **Aggregates removed.** The raw data mixes 217 real countries with 79 groupings
-  ("Euro area", "High income", etc.). All analysis uses real countries only, so totals
-  and averages aren't double-counted.
-- **Missing values left as NULL, not invented.** Gaps are small (≤1.8%, mostly the
-  structural 1960 growth rate) and are excluded from averages rather than fabricated.
-- **Star schema.** Country attributes live in `dim_country`; measurements in
-  `fact_demographics`; the two join on `country_code` — the layout BI tools expect.
-- **Known caveat.** Cross-country averages weight every country equally (tiny and huge
-  countries count the same). This is a valid "average country" view but differs from a
-  population-weighted "average person" view.
+  ("Euro area", "High income", etc.). I kept only the real countries in the analysis so
+  totals and averages don't get double-counted.
+- **Missing values left as NULL, not invented.** The gaps are small (≤1.8%, mostly the
+  structural 1960 growth rate), and I excluded them from the averages rather than make up
+  numbers to fill them.
+- **Star schema.** I put country attributes in `dim_country` and the measurements in
+  `fact_demographics`, joined on `country_code` — the layout BI tools expect.
+- **Known caveat.** My cross-country averages weight every country equally, so tiny and
+  huge countries count the same. That's a fair "average country" view, but it's worth
+  being clear that it isn't the same as a population-weighted "average person" view.
 
 ## Progress log
-- [x] **Step 1 — Data acquisition.** Reproducible download script; 17,024 indicator rows + country metadata.
-- [x] **Step 2 — Data cleaning & modeling.** Aggregates removed, types fixed, star schema (217 countries × 13,888 facts); all quality checks pass.
-- [x] **Step 3 — Analysis & insights.** SQLite database + 6 documented SQL queries → the six key findings above.
-- [x] **Step 4 — Power BI dashboard.** Interactive one-page dashboard (`powerbi/Global Demographics.pbix`): the six findings as visuals, a DAX measure for the fastest-transition leaderboard, and a region slicer that cross-filters the whole page.
+- [x] **Step 1 — Data acquisition.** Wrote a reproducible download script that pulled 17,024 indicator rows plus the country metadata.
+- [x] **Step 2 — Data cleaning & modeling.** Removed the aggregates, fixed the types, and built the star schema (217 countries × 13,888 facts); all my quality checks pass.
+- [x] **Step 3 — Analysis & insights.** Built the SQLite database and wrote 6 documented SQL queries that produce the six key findings above.
+- [x] **Step 4 — Power BI dashboard.** Built an interactive one-page dashboard (`powerbi/Global Demographics.pbix`): the six findings as visuals, a DAX measure for the fastest-transition leaderboard, and a region slicer that cross-filters the whole page.
