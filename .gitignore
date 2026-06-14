@@ -1,0 +1,16 @@
+# Python virtual environment (large, machine-specific — never commit)
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+*~
+
+# Screenshots / Power BI temp files
+Screenshot *.png
+*.pbix.tmp
+.~lock.*
