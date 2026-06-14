@@ -5,6 +5,25 @@ A data-analytics study of 60+ years of demographic change across 200+ countries.
 
 ---
 
+## 🎯 Objective & outcome
+
+**Objective —** turn 60+ years of World Bank data into a clear, decision-ready read on
+**which countries are aging vs. still growing**, who is aging *fastest*, and **where India
+stands** — for a long-horizon (25-year) global investment fund.
+
+**What this project does —** a fully reproducible analytics pipeline: pull 11 demographic
+indicators for 200+ countries from the World Bank API → clean into a SQL **star-schema**
+warehouse → answer the brief with **6 analytical SQL queries** → visualise in an interactive
+**Power BI** dashboard.
+
+**Did we achieve it? ✅ Yes.** The global transition is quantified (fertility roughly
+**halved, 5.3 → 2.4 births per woman**), the youngest/oldest regions and **fastest-aging
+countries** are ranked, and **India's demographic-dividend window** is pinpointed (working-age
+share peaking *now*). Delivered end-to-end with documented methodology and honest caveats
+(e.g. unweighted country averages).
+
+---
+
 ## The brief (business context)
 
 > A client managing a 25-year global infrastructure & equities fund needs to know
