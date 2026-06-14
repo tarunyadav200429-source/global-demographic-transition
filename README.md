@@ -3,6 +3,8 @@
 **Who's aging, who's booming, and where does India stand?**
 A data-analytics study of 60+ years of demographic change across 200+ countries.
 
+![Global Demographic Transition — Power BI dashboard](dashboard.png)
+
 ---
 
 ## What I set out to do
